@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
+import toast from 'react-hot-toast';
 
 import Sidebar from '../components/Sidebar';
 import DashboardHeader from '../components/DashboardHeader';
@@ -119,22 +120,33 @@ export default function Dashboard() {
 
   // ── CRUD handlers ────────────────────────────────────────────────────────────
   const handleEmployeeSubmit = async (formData) => {
-    if (selectedEmployeeForEdit) {
-      await api.put(`/employees/${selectedEmployeeForEdit.id}`, formData);
-      setSelectedEmployeeForEdit(null);
-    } else {
-      await api.post('/employees', formData);
+    try {
+      if (selectedEmployeeForEdit) {
+        await api.put(`/employees/${selectedEmployeeForEdit.id}`, formData);
+        setSelectedEmployeeForEdit(null);
+        toast.success('Employee updated successfully!');
+      } else {
+        await api.post('/employees', formData);
+        toast.success('Employee created successfully!');
+      }
+      fetchEmployees();
+      fetchAnalytics();
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to save employee.');
     }
-    fetchEmployees();
-    fetchAnalytics();
   };
 
   const handleEmployeeDelete = async () => {
     if (!employeeToDelete) return;
-    await api.delete(`/employees/${employeeToDelete.id}`);
-    fetchEmployees();
-    fetchAnalytics();
-    setEmployeeToDelete(null);
+    try {
+      await api.delete(`/employees/${employeeToDelete.id}`);
+      fetchEmployees();
+      fetchAnalytics();
+      setEmployeeToDelete(null);
+      toast.success('Employee deleted successfully!');
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to delete employee.');
+    }
   };
 
   // ── UI helpers ───────────────────────────────────────────────────────────────
