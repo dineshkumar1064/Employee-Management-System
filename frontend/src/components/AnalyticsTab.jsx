@@ -120,7 +120,7 @@ export default function AnalyticsTab({ analyticsData, analyticsLoading, COLORS }
       </div>
 
       {/* Chart 3: Monthly hired employees trend (Area) */}
-      <div className="glass-panel chart-card" style={{ gridColumn: 'span 2' }}>
+      <div className="glass-panel chart-card chart-card-full">
         <h3 className="chart-title">
           <TrendingUp size={18} style={{ color: '#10b981' }} />
           Hires Trends Timeline (Joined Employees)

@@ -42,9 +42,8 @@ export default function DashboardHeader({ activeTab, user, theme, toggleTheme, l
         {/* Mobile-only Logout (sidebar footer is hidden on mobile layout) */}
         <button
           onClick={logout}
-          className="theme-toggle"
+          className="theme-toggle mobile-only"
           title="Sign Out"
-          style={{ display: window.innerWidth <= 768 ? 'flex' : 'none' }}
         >
           <LogOut size={18} />
         </button>

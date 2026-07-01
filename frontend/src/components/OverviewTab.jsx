@@ -75,12 +75,9 @@ export default function OverviewTab({
       {/* Overview Analytics Teaser Layout */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: '1.4fr 1fr',
-          gap: '24px',
           marginTop: '32px'
         }}
-        className="analytics-grid"
+        className="analytics-grid overview-analytics-grid"
       >
         {/* Mini employee table */}
         <div className="glass-panel" style={{ padding: '24px' }}>
